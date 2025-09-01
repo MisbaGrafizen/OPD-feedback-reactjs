@@ -1,0 +1,414 @@
+@font-face {
+  font-family: "ParalucentStencil W00 Medium";
+  src: url("https://db.onlinewebfonts.com/t/03faac845595b6173775ad083ee592dc.eot");
+  src: url("https://db.onlinewebfonts.com/t/03faac845595b6173775ad083ee592dc.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/03faac845595b6173775ad083ee592dc.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/03faac845595b6173775ad083ee592dc.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/03faac845595b6173775ad083ee592dc.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/03faac845595b6173775ad083ee592dc.svg#ParalucentStencil W00 Medium")format("svg");
+}
+
+.fontStyle {
+  font-family: "ParalucentStencil W00 Medium";
+  font-weight: 100 !important;
+
+
+
+}
+@media print {
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .invoice-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px;
+    font-size: 14px;
+    color: #000;
+  }
+
+  .invoice-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 8px;
+  }
+
+  .invoice-sub-header {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+
+  .contact-info {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 12px;
+  }
+
+  .invoice-section {
+    display: flex;
+    border: 1px solid #000;
+    border-collapse: collapse;
+    margin-top: 5px;
+  }
+
+  .invoice-section > div {
+    flex: 1;
+    padding: 8px;
+    border-right: 1px solid #000;
+  }
+
+  .invoice-section > div:last-child {
+    border-right: none;
+  }
+
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    border: 1px solid #000;
+    padding: 6px;
+    text-align: center;
+  }
+
+  .invoice-bold {
+    font-weight: bold;
+  }
+
+  .note,
+  .terms {
+    margin-top: 15px;
+    font-size: 13px;
+  }
+
+  .terms p {
+    margin: 2px 0;
+  }
+
+  .bank-details p {
+    margin: 3px 0;
+  }
+
+  .right-align {
+    text-align: right;
+  }
+
+  .amount-total {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .footer-sign {
+    text-align: right;
+    margin-top: 40px;
+    font-size: 13px;
+  }
+
+  .footer-sign span {
+    display: block;
+    margin-top: 40px;
+    font-size: 12px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .text-small {
+    font-size: 13px;
+  }
+
+  .text-xs {
+    font-size: 12px;
+  }
+}
+
+
+@font-face {
+  font-family: myFirstFont;
+  src: url(sansation_light.woff);
+}
+
+.loginf {
+  font-family: myFirstFonts;
+  font-weight: 400;
+}
+
+
+.custom-sahdow {
+  box-shadow: 0px 1px 10px #7a6e6e, 0px 1px 10px #7a6e6e;
+}
+.custom-sahdowgreen {
+  box-shadow: 0px 1px 10px #d2dbd2, 0px 1px 10px #e5ebe5;
+}
+
+
+.custom-sahdowgreenbu {
+  box-shadow: 0px 1px 10px #e9e3e3, 0px 1px 10px #e7e0e0;
+}
+/* Custom modal backdrop */
+.nextui-modal-backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  /* Darker background */
+}
+
+
+.customFont {
+  font-family: 'Pavanam';
+}
+
+
+.font-patua {
+  font-family: 'Patua One';
+}
+
+.css-10o2lyd-MuiStack-root>.MuiTextField-root {
+  max-width: 100% !important;
+  min-width: 100% !important;
+
+
+}
+
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 0px !important;
+}
+
+
+
+.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  border: none !important;
+  /* line-height: 1.4375em; */
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  /* position: relative; */
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  /* border-radius: 4px; */
+  padding-right: 10px !important;
+}
+
+.css-10o2lyd-MuiStack-root {
+  padding: 0px !important;
+
+}
+
+.css-1ll44ll-MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.shadow-delete {
+  box-shadow: 1px 5px 19px rgb(197, 191, 191) !important;
+}
+
+/* .shadow-delete-icon {
+  box-shadow: 5px 5px 0px red ,5px 5px 20px red !important;
+} */
+
+.rounded-large {
+  border-radius: 15px 15px 5px 5px !important;
+}
+
+
+
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  --d: 40px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  color: #25b09b;
+  box-shadow:
+    calc(1*var(--d)) calc(0*var(--d)) 0 0,
+    calc(0.707*var(--d)) calc(0.707*var(--d)) 0 1px,
+    calc(0*var(--d)) calc(1*var(--d)) 0 2px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
+    calc(-1*var(--d)) calc(0*var(--d)) 0 4px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
+    calc(0*var(--d)) calc(-1*var(--d)) 0 6px;
+  animation: l27 1s infinite steps(8);
+ 
+}
+
+@keyframes l27 {
+  100% {
+    transform: rotate(1turn)
+  }
+}
+
+
+.bgimg {
+
+
+  background-image: url(../public/dwarka.jpg);
+  opacity: 0.9;
+  background-color: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  display: flex;
+  z-index: -1;
+  background-size: 100% 100%;
+  backdrop-filter: blur(10px);
+
+}
+
+.backgg {
+  backdrop-filter: blur(10px);
+  background: url(../public/Gallery/abstract-surface-wood-texture-background.jpg);
+  border-radius: 20px;
+
+}
+
+.bgblur {
+  backdrop-filter: blur(10px);
+  background: transparent;
+  transform: translateY(0px);
+  /* transition: transform 0.3s ease-in-out; */
+  /* Smooth transition */
+}
+
+@keyframes hoverEffect {
+  0% {
+    transform: translateY(62px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+
+.review-item {
+  flex: 0 0 auto;
+  margin-right: 20px; /* Consistent gap */
+  width: 400px; /* Fixed width */
+}
+
+
+/* Wrapper for the scrolling container */
+.scroll-container-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  height: 240px; /* Ensure sufficient height for content */
+}
+
+/* Smooth right-to-left scrolling animation */
+.scroll-container {
+  display: flex;
+  animation: fastSmoothScroll 15s linear infinite;
+}
+
+@keyframes fastSmoothScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.mainhovercon:hover .thisco{ 
+  background-color: #e6f85e !important;
+cursor: pointer;
+}
+
+
+
+
+
+
+.fade-mask {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes circleDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes checkDraw {
+  from { stroke-dashoffset: 24; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-circle-draw {
+  animation: circleDraw 0.6s ease-in-out forwards;
+}
+
+.animate-check-draw {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: checkDraw 0.3s ease-out 0.5s forwards;
+}
+
+
+.bestback-glass {
+
+  background: white;
+  backdrop-filter: blur(8px);
+}
+
+
+.shadow1-blue{
+box-shadow: 1px 1px 3px #cfe9f6 ,-1px -1px 3px #eef7fb;
+}
+
+
+.timeRunning {
+  position: absolute;
+  bottom: 0;
+  height: 5px;
+  width: 100%;
+  background: red;
+  animation: runningTime 7s linear 1 forwards;
+}
+
+@keyframes runningTime {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+.aspectdesign{
+  clip-path: polygon(0px 48.9981px, 0px 48.9981px, 0.06573923px 47.3771491px, 0.26092744px 45.7773728px, 0.58252041px 44.2059357px, 1.02747392px 42.6700024px, 1.59274375px 41.1767375px, 2.27528568px 39.7333056px, 3.07205549px 38.3468713px, 3.98000896px 37.0245992px, 4.99610187px 35.7736539px, 6.11729px 34.6012px, 36.1894px 5.60312px, 36.1894px 5.60312px, 37.3441029px 4.57275699px, 38.5674632px 3.64008832px, 39.8531983px 2.80764953px, 41.1950256px 2.07797616px, 42.5866625px 1.45360375px, 44.0218264px 0.93706784px, 45.4942347px 0.53090397px, 46.9976048px 0.23764768px, 48.5256541px 0.05983451px, 50.0721px 0px, calc(100% - 20px) 0px, calc(100% - 20px) 0px, calc(100% - 16.755822px) 0.26176637px, calc(100% - 13.678336px) 1.01961376px, calc(100% - 10.808714px) 2.23236459px, calc(100% - 8.188128px) 3.85884128px, calc(100% - 5.85775px) 5.85786625px, calc(100% - 3.858752px) 8.18826192px, calc(100% - 2.232306px) 10.80885071px, calc(100% - 1.019584px) 13.67845504px, calc(100% - 0.261758px) 16.75589733px, calc(100% - 0px) 20px, calc(100% - 0px) calc(100% - 20px), calc(100% - 0px) calc(100% - 20px), calc(100% - 0.261758px) calc(100% - 16.755822px), calc(100% - 1.019584px) calc(100% - 13.678336px), calc(100% - 2.232306px) calc(100% - 10.808714px), calc(100% - 3.858752px) calc(100% - 8.188128px), calc(100% - 5.85775px) calc(100% - 5.85775px), calc(100% - 8.188128px) calc(100% - 3.858752px), calc(100% - 10.808714px) calc(100% - 2.232306px), calc(100% - 13.678336px) calc(100% - 1.019584px), calc(100% - 16.755822px) calc(100% - 0.261758px), calc(100% - 20px) calc(100% - 0px), 20px calc(100% - 0px), 20px calc(100% - 0px), 16.7558949px calc(100% - 0.261758px), 13.6784512px calc(100% - 1.019584px), 10.8088463px calc(100% - 2.232306px), 8.1882576px calc(100% - 3.858752px), 5.8578625px calc(100% - 5.85775px), 3.8588384px calc(100% - 8.188128px), 2.2323627px calc(100% - 10.808714px), 1.0196128px calc(100% - 13.678336px), 0.2617661px calc(100% - 16.755822px), 0px calc(100% - 20px), 0px 48.9981px);
+        aspect-ratio: 100 / 200;
+
+}
