@@ -13,7 +13,7 @@ import {
   User,
   Stethoscope,
 } from "lucide-react"
-
+import { ApiPost } from "../../helper/axios"
 
 import logo from "../../../public/images/Logo/GirirajFeedBackLogo.jpg"
 const theme = {
@@ -177,6 +177,9 @@ const dict = {
   },
 }
 
+const OPD_ENDPOINT = "/opd-patient";
+
+
 // Framer Motion variants
 const sectionVariants = {
   initial: { opacity: 0, y: 16, scale: 0.98 },
@@ -198,27 +201,34 @@ function FloatingInput({ icon: Icon, label, type = "text", value, onChange, erro
             <Icon className="h-5 w-5" />
           </div>
         ) : null}
+
         <input
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`peer w-full bg-transparent outline-none ${Icon ? "px-12" : "px-4"} pt-5 pb-2 rounded-[14px]`}
-          placeholder=" "
+          placeholder=" "               // IMPORTANT for :placeholder-shown to work
           {...inputProps}
         />
+
         <label
-          className={`pointer-events-none absolute ${Icon ? "left-12" : "left-4"} top-3 text-gray-500 transition-all bg-white px-1
-            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-            peer-focus:top-2 peer-focus:text-xs peer-focus:text-red-600
-            peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-gray-600`}
+          className={`pointer-events-none absolute ${Icon ? "left-12" : "left-4"} bg-white px-1
+            transition-all
+            top-3 text-base text-gray-500
+            peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-red-600
+            peer-[&:not(:placeholder-shown)]:top-1.5
+            peer-[&:not(:placeholder-shown)]:text-xs
+            peer-[&:not(:placeholder-shown)]:text-gray-600`}
         >
           {label}
         </label>
       </div>
+
       {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
     </div>
   )
 }
+
 
 // Floating textarea
 function FloatingTextarea({ label, value, onChange, rows = 3 }) {
@@ -424,6 +434,57 @@ export default function OPDFeedback() {
     security: 0,
   })
   const [comments, setComments] = useState("")
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+// Map UI ratings -> backend keys (mirrors IPD names; extras are sent too)
+const mapRatingsForBackend = (r) => ({
+  // IPD-like keys
+  appointmentBooking: r.appointment || 0,
+  receptionStaff: r.reception || 0,
+  labServices: r.laboratory || 0,
+  radiologyServices: r.radiology || 0,
+  doctorServices: r.doctorServices || 0,
+
+  // If your OPD backend also stores these, they’ll arrive; otherwise ignored
+  diagnosticServices: r.diagnostic || 0,
+  security: r.security || 0,
+});
+
+// Final submission on Step 4
+const handleSubmitOPD = async () => {
+  // Make sure Step 1 is valid and NPS chosen
+  if (!validateStep1()) { setStep(1); return; }
+  if (nps === null) { alert("Please select a recommendation score."); return; }
+
+  setIsSubmitting(true);
+  try {
+    const payload = {
+      language: lng,
+      patientName: name,
+      contact: mobile,
+      consultantDoctor: doctor,      
+      ratings: mapRatingsForBackend(ratings),
+      comments,                    
+      awareness: awareness,
+      overallRecommendation: nps,    
+    };
+
+    await ApiPost(OPD_ENDPOINT, payload);
+
+    // show toast then go to Thank-you screen
+    setShowSaved(true);
+    setTimeout(() => {
+      setShowSaved(false);
+      setStep(5);
+    }, 800);
+  } catch (err) {
+    console.error("OPD submit failed:", err);
+    alert("Could not submit. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   // Step 3: Awareness (multi-select)
   const AWARE = dict[lng].awarenessOptions
@@ -698,7 +759,7 @@ export default function OPDFeedback() {
                   <TextIconButton icon={ArrowLeft} onClick={() => setStep(3)} variant="outline">
                     {t("back")}
                   </TextIconButton>
-                  <TextIconButton
+                  {/* <TextIconButton
                     icon={ArrowRight}
                     onClick={() => {
                       setShowSaved(true)
@@ -712,7 +773,17 @@ export default function OPDFeedback() {
                     disabled={nps === null}
                   >
                     {t("submit")}
-                  </TextIconButton>
+                  </TextIconButton> */}
+                  <TextIconButton
+  icon={ArrowRight}
+  onClick={handleSubmitOPD}
+  variant="solid"
+  className={theme.primaryBg}
+  disabled={nps === null || isSubmitting}
+>
+  {isSubmitting ? "Submitting..." : t("submit")}
+</TextIconButton>
+
                 </div>
               </motion.section>
             )}
