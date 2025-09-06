@@ -16,6 +16,16 @@ import {
 import { ApiPost } from "../../helper/axios"
 
 import logo from "../../../public/images/Logo/GirirajFeedBackLogo.jpg"
+import emoji1 from "../../../public/images/emojiFolder/11.png"
+import emoji2 from "../../../public/images/emojiFolder/2.png"
+import emoji3 from "../../../public/images/emojiFolder/3.png"
+import emoji4 from "../../../public/images/emojiFolder/4.png"
+import emoji5 from "../../../public/images/emojiFolder/5.png"
+import emoji6 from "../../../public/images/emojiFolder/6.png"
+import emoji7 from "../../../public/images/emojiFolder/7.png"
+import emoji8 from "../../../public/images/emojiFolder/8.png"
+import emoji9 from "../../../public/images/emojiFolder/9.png"
+import emoji10 from "../../../public/images/emojiFolder/1.png"
 const theme = {
   primaryBg: "bg-red-600 hover:bg-red-700",
   card: "rounded-[28px] border border-red-200 bg-[radial-gradient(1200px_600px_at_30%_-10%,rgba(255,0,0,0.1),transparent_60%),linear-gradient(to_bottom_right,rgba(255,255,255,0.95),rgba(255,0,0,0.06))] shadow-[0_10px_40px_rgba(244,63,94,0.20)]",
@@ -187,14 +197,67 @@ const sectionVariants = {
   exit: { opacity: 0, y: -8, scale: 0.98, transition: { duration: 0.18 } },
 }
 
+
+const servicesConfig = [
+  {
+    title: "appointment",
+    options: [{ key: "appointment" }],
+  },
+  {
+    title: "receptionStaff",
+    options: [{ key: "frontDesk" }],
+  },
+  {
+    title: "diagnosticServices",
+    options: [
+      { key: "laboratory" },
+      { key: "radiology" },
+    ],
+  },
+  {
+    title: "doctorServices",
+    options: [
+      { key: "consultant" }, // you can adjust if you want sub-options like before
+      { key: "medical" },
+    ],
+  },
+  {
+    title: "security",
+    options: [{ key: "security" }],
+  },
+]
+
+const emojiRows = [
+  // Row 1 → Definitely (10, 9)
+  [
+    { value: 10, src: emoji10 },
+    { value: 9, src: emoji9 },
+  ],
+  // Row 2 → Maybe (8, 7)
+  [
+    { value: 8, src: emoji8 },
+    { value: 7, src: emoji7 },
+  ],
+  // Row 3 → Not at all (6, 5, 4, 3)
+  [
+    { value: 6, src: emoji6 },
+    { value: 5, src: emoji5 },
+    { value: 4, src: emoji4 },
+    { value: 3, src: emoji3 },
+  ],
+  // Row 4 → Not at all (2, 1)
+  [
+    { value: 2, src: emoji2 },
+    { value: 1, src: emoji1 },
+  ],
+]
 // Floating input
 function FloatingInput({ icon: Icon, label, type = "text", value, onChange, error, inputProps = {} }) {
   return (
     <div>
       <div
-        className={`relative rounded-[14px] border bg-white ${
-          error ? "border-red-400" : "border-gray-200"
-        } focus-within:border-red-400`}
+        className={`relative rounded-[14px] border bg-white ${error ? "border-red-400" : "border-gray-200"
+          } focus-within:border-red-400`}
       >
         {Icon ? (
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -239,7 +302,7 @@ function FloatingTextarea({ label, value, onChange, rows = 3 }) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder=" "
-        className="peer w-full resize-y rounded-[14px] border border-gray-200 bg-white p-4 pt-6 outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-200"
+        className="peer w-full resize-y rounded-[14px] border border-gray-200 bg-white p-4 pt-4 h-[80px] outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-200"
       />
       <label
         className={`pointer-events-none absolute left-4 top-3 text-gray-500 transition-all bg-white px-1
@@ -269,6 +332,48 @@ function TextIconButton({ icon: Icon, children, onClick, variant = "solid", clas
   )
 }
 
+function ServiceFeedback({ title, options, t }) {
+    const [selected, setSelected] = useState(options[0].key)
+    const [ratings, setRatings] = useState({})
+    const [comments, setComments] = useState({})
+
+    return (
+        <div className="border flex flex-col md:flex-row justify-between w-[100%] gap-[10px] md:items-center rounded-xl md:px-[20px] py-3 mb-2 px-[10px] bg-white shadow-sm">
+            <div>
+
+
+                <h3 className="text-[15px] font-[500] mb-1">{t(title)}</h3>
+
+                {/* Radio Options */}
+                <div className="flex gap-4 ">
+                    {options.map((opt) => (
+                        <label key={opt.key} className="flex items-center gap-2 text-[13px] cursor-pointer">
+                            <input
+                                type="radio"
+                                name={title}
+                                value={opt.key}
+                                checked={selected === opt.key}
+                                onChange={() => setSelected(opt.key)}
+                                className="accent-red-600 w-[15px] h-[15px]"
+                            />
+                            {t(opt.key)}
+                        </label>
+                    ))}
+                </div>
+            </div>
+            {/* Stars */}
+            <div className="">
+                <Stars
+                    value={ratings[selected] || 0}
+                    onChange={(v) => setRatings((r) => ({ ...r, [selected]: v }))}
+                />
+            </div>
+
+            {/* Comments */}
+
+        </div>
+    )
+}
 // Stars 1..5
 function Stars({ value = 0, onChange, label }) {
   const stars = [1, 2, 3, 4, 5]
@@ -363,6 +468,30 @@ function AnimatedDropdown({ label, icon: Icon, options, selected, onSelect, plac
     </div>
   )
 }
+// Circular emotive button used on the NPS screen
+function EmoteButton({ value, src, selected, onSelect }) {
+  const isActive = selected === value
+  return (
+    <div className="flex flex-col items-center">
+      <button
+        type="button"
+        onClick={() => onSelect(value)}
+        className={`relative grid h-16 w-16 place-items-center rounded-full  transition
+          ${isActive ? "scale-110 d" : "opacity-40 border-gray-300"}`}
+      >
+        <img src={src} alt={`Emoji ${value}`} className="md:h-15 h-[60px] w-[60px] md:w-15 object-contain" />
+      </button>
+      <span
+        className={`mt-1 text-sm font-semibold transition ${
+          isActive ? "opacity-100 scale-105" : "opacity-40"
+        }`}
+      >
+        {value}
+      </span>
+    </div>
+  )
+}
+
 
 // NPS segmented (0-6 red, 7-8 yellow, 9-10 green)
 function NpsSegmented({ value, onChange, t }) {
@@ -371,9 +500,8 @@ function NpsSegmented({ value, onChange, t }) {
       key={n}
       type="button"
       onClick={() => onChange(n)}
-      className={`h-12 w-12 rounded-full text-sm font-semibold transition border ${colorClasses} ${
-        value === n ? "ring-2 ring-offset-1 ring-current" : ""
-      }`}
+      className={`h-12 w-12 rounded-full text-sm font-semibold transition border ${colorClasses} ${value === n ? "ring-2 ring-offset-1 ring-current" : ""
+        }`}
       aria-label={`NPS ${n}`}
       title={`NPS ${n}`}
     >
@@ -437,54 +565,54 @@ export default function OPDFeedback() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-// Map UI ratings -> backend keys (mirrors IPD names; extras are sent too)
-const mapRatingsForBackend = (r) => ({
-  // IPD-like keys
-  appointmentBooking: r.appointment || 0,
-  receptionStaff: r.reception || 0,
-  labServices: r.laboratory || 0,
-  radiologyServices: r.radiology || 0,
-  doctorServices: r.doctorServices || 0,
+  // Map UI ratings -> backend keys (mirrors IPD names; extras are sent too)
+  const mapRatingsForBackend = (r) => ({
+    // IPD-like keys
+    appointmentBooking: r.appointment || 0,
+    receptionStaff: r.reception || 0,
+    labServices: r.laboratory || 0,
+    radiologyServices: r.radiology || 0,
+    doctorServices: r.doctorServices || 0,
 
-  // If your OPD backend also stores these, they’ll arrive; otherwise ignored
-  diagnosticServices: r.diagnostic || 0,
-  security: r.security || 0,
-});
+    // If your OPD backend also stores these, they’ll arrive; otherwise ignored
+    diagnosticServices: r.diagnostic || 0,
+    security: r.security || 0,
+  });
 
-// Final submission on Step 4
-const handleSubmitOPD = async () => {
-  // Make sure Step 1 is valid and NPS chosen
-  if (!validateStep1()) { setStep(1); return; }
-  if (nps === null) { alert("Please select a recommendation score."); return; }
+  // Final submission on Step 4
+  const handleSubmitOPD = async () => {
+    // Make sure Step 1 is valid and NPS chosen
+    if (!validateStep1()) { setStep(1); return; }
+    if (nps === null) { alert("Please select a recommendation score."); return; }
 
-  setIsSubmitting(true);
-  try {
-    const payload = {
-      language: lng,
-      patientName: name,
-      contact: mobile,
-      consultantDoctor: doctor,      
-      ratings: mapRatingsForBackend(ratings),
-      comments,                    
-      awareness: awareness,
-      overallRecommendation: nps,    
-    };
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        language: lng,
+        patientName: name,
+        contact: mobile,
+        consultantDoctor: doctor,
+        ratings: mapRatingsForBackend(ratings),
+        comments,
+        awareness: awareness,
+        overallRecommendation: nps,
+      };
 
-    await ApiPost(OPD_ENDPOINT, payload);
+      await ApiPost(OPD_ENDPOINT, payload);
 
-    // show toast then go to Thank-you screen
-    setShowSaved(true);
-    setTimeout(() => {
-      setShowSaved(false);
-      setStep(5);
-    }, 800);
-  } catch (err) {
-    console.error("OPD submit failed:", err);
-    alert("Could not submit. Please try again.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      // show toast then go to Thank-you screen
+      setShowSaved(true);
+      setTimeout(() => {
+        setShowSaved(false);
+        setStep(5);
+      }, 800);
+    } catch (err) {
+      console.error("OPD submit failed:", err);
+      alert("Could not submit. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Step 3: Awareness (multi-select)
   const AWARE = dict[lng].awarenessOptions
@@ -568,11 +696,10 @@ const handleSubmitOPD = async () => {
                           key={opt.id}
                           type="button"
                           onClick={() => setLng(opt.id)}
-                          className={`inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-sm font-semibold transition ${
-                            lng === opt.id
-                              ? "bg-red-600 text-white"
-                              : "border border-gray-200 bg-white text-gray-800 hover:border-red-300"
-                          }`}
+                          className={`inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-sm font-semibold transition ${lng === opt.id
+                            ? "bg-red-600 text-white"
+                            : "border border-gray-200 bg-white text-gray-800 hover:border-red-300"
+                            }`}
                         >
                           <Languages className="h-4 w-4" />
                           {opt.label}
@@ -656,27 +783,16 @@ const handleSubmitOPD = async () => {
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-[600] text-gray-900">{t("step2Title")}</h2>
                 </div>
+                {servicesConfig.map((srv) => (
+                  <ServiceFeedback
+                    key={srv.title}
+                    title={srv.title}
+                    options={srv.options}
+                    t={t}
+                  />
+                ))}
 
-                <div className="space-y-6">
-                  {[
-                    "appointment",
-                    "reception",
-                    "diagnostic",
-                    "laboratory",
-                    "radiology",
-                    "doctorServices",
-                    "security",
-                  ].map((key) => (
-                    <div key={key} className="flex items-center justify-between gap-4">
-                      <p className="font-semibold text-gray-900">{t(key)}</p>
-                      <Stars
-                        value={ratings[key]}
-                        onChange={(v) => setRatings((r) => ({ ...r, [key]: v }))}
-                        label={t(key)}
-                      />
-                    </div>
-                  ))}
-                </div>
+
 
                 <div className="mt-6">
                   <FloatingTextarea label={t("comments")} value={comments} onChange={setComments} rows={4} />
@@ -709,24 +825,23 @@ const handleSubmitOPD = async () => {
               >
                 <h2 className="text-2xl font-[600] text-gray-900 text-center">{t("step3Title")}</h2>
                 <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
-  {dict[lng].awarenessOptions.map((opt) => {
-  const active = awareness === opt
-  return (
-    <button
-      key={opt}
-      type="button"
-      onClick={() => setAwareness(opt)}
-      className={`rounded-[8px] px-3 py-2 text-sm font-medium transition border ${
-        active
-          ? "border-red-600 bg-red-50 text-red-700"
-          : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
-      }`}
-      aria-pressed={active}
-    >
-      {opt}
-    </button>
-  )
-})}
+                  {dict[lng].awarenessOptions.map((opt) => {
+                    const active = awareness === opt
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => setAwareness(opt)}
+                        className={`rounded-[8px] px-3 py-2 text-sm font-medium transition border ${active
+                          ? "border-red-600 bg-red-50 text-red-700"
+                          : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
+                          }`}
+                        aria-pressed={active}
+                      >
+                        {opt}
+                      </button>
+                    )
+                  })}
 
                 </div>
 
@@ -751,38 +866,79 @@ const handleSubmitOPD = async () => {
               <motion.section key="nps" variants={sectionVariants} initial="initial" animate="animate" exit="exit">
                 <h2 className="text-2xl font-[600] text-gray-900 text-center">{t("step4Title")}</h2>
 
-                <div className="mt-6">
-                  <NpsSegmented value={nps} onChange={setNps} t={t} />
-                </div>
+    {/* Row 1: Definitely */}
+    <div className="mt-6">
+      <p className="text-center text-green-700 font-semibold">{t("npsLikely")}</p>
+      <div className="mt-3 flex justify-center gap-10">
+        {[{ v: 10, img: emoji10 }, { v: 9, img: emoji9 }].map((item) => (
+          <EmoteButton
+            key={item.v}
+            value={item.v}
+            src={item.img}
+            selected={nps}
+            onSelect={setNps}
+          />
+        ))}
+      </div>
+    </div>
+
+    {/* Row 2: Maybe */}
+    <div className="mt-8">
+      <p className="text-center text-yellow-600 font-semibold">{t("npsMaybe")}</p>
+      <div className="mt-3 flex justify-center gap-10">
+        {[{ v: 8, img: emoji8 }, { v: 7, img: emoji7 }].map((item) => (
+          <EmoteButton
+            key={item.v}
+            value={item.v}
+            src={item.img}
+            selected={nps}
+            onSelect={setNps}
+          />
+        ))}
+      </div>
+    </div>
+
+    {/* Row 3: Not at all */}
+    <div className="mt-8">
+      <p className="text-center text-red-600 font-semibold">{t("npsNotLikely")}</p>
+      <div className="mt-3 flex justify-center gap-6">
+        {[{ v: 6, img: emoji6 }, { v: 5, img: emoji5 }, { v: 4, img: emoji4 }, { v: 3, img: emoji3 }].map((item) => (
+          <EmoteButton
+            key={item.v}
+            value={item.v}
+            src={item.img}
+            selected={nps}
+            onSelect={setNps}
+          />
+        ))}
+      </div>
+      <div className="mt-4 flex justify-center gap-10">
+        {[{ v: 2, img: emoji2 }, { v: 1, img: emoji1 }].map((item) => (
+          <EmoteButton
+            key={item.v}
+            value={item.v}
+            src={item.img}
+            selected={nps}
+            onSelect={setNps}
+          />
+        ))}
+      </div>
+    </div>
 
                 <div className="mt-8 flex items-center justify-between">
                   <TextIconButton icon={ArrowLeft} onClick={() => setStep(3)} variant="outline">
                     {t("back")}
                   </TextIconButton>
-                  {/* <TextIconButton
+
+                  <TextIconButton
                     icon={ArrowRight}
-                    onClick={() => {
-                      setShowSaved(true)
-                      setTimeout(() => {
-                        setShowSaved(false)
-                        setStep(5)
-                      }, 800)
-                    }}
+                    onClick={handleSubmitOPD}
                     variant="solid"
                     className={theme.primaryBg}
-                    disabled={nps === null}
+                    disabled={nps === null || isSubmitting}
                   >
-                    {t("submit")}
-                  </TextIconButton> */}
-                  <TextIconButton
-  icon={ArrowRight}
-  onClick={handleSubmitOPD}
-  variant="solid"
-  className={theme.primaryBg}
-  disabled={nps === null || isSubmitting}
->
-  {isSubmitting ? "Submitting..." : t("submit")}
-</TextIconButton>
+                    {isSubmitting ? "Submitting..." : t("submit")}
+                  </TextIconButton>
 
                 </div>
               </motion.section>
