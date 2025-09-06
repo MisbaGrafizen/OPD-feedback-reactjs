@@ -336,6 +336,8 @@ function ServiceFeedback({ title, options, t }) {
     const [selected, setSelected] = useState(options[0].key)
     const [ratings, setRatings] = useState({})
     const [comments, setComments] = useState({})
+    const [awareness, setAwareness] = useState(null);
+
 
     return (
         <div className="border flex flex-col md:flex-row justify-between w-[100%] gap-[10px] md:items-center rounded-xl md:px-[20px] py-3 mb-2 px-[10px] bg-white shadow-sm">
