@@ -7,6 +7,7 @@ import {
   ArrowRight,
   CheckCircle2,
   ChevronDown,
+  Check,
   Languages,
   Phone,
   StarIcon,
@@ -28,9 +29,9 @@ import emoji9 from "../../../public/images/emojiFolder/9.png"
 import emoji10 from "../../../public/images/emojiFolder/1.png"
 
 const theme = {
-  primaryBg: "bg-red-600 hover:bg-red-700",
+  // primaryBg: "bg-red-600 hover:bg-red-700",
   card:
-    "rounded-[28px] border border-red-200 bg-[radial-gradient(1200px_600px_at_30%_-10%,rgba(255,0,0,0.1),transparent_60%),linear-gradient(to_bottom_right,rgba(255,255,255,0.95),rgba(255,0,0,0.06))] shadow-[0_10px_40px_rgba(244,63,94,0.20)]",
+    "rounded-[22px] border-[1.4px] border-gray-300 shadow-md ",
 }
 
 const dict = {
@@ -206,11 +207,11 @@ const MIN_REQUIRED_RATINGS = 3
 
 // services (diagnostics split → radiology/pathology)
 const servicesConfig = [
-  { title: "appointment",        options: [{ key: "appointment" }] },
-  { title: "receptionStaff",     options: [{ key: "receptionStaff" }] },
+  { title: "appointment", options: [{ key: "appointment" }] },
+  { title: "receptionStaff", options: [{ key: "receptionStaff" }] },
   { title: "diagnosticServices", options: [{ key: "radiology" }, { key: "pathology" }] },
-  { title: "doctorServices",     options: [{ key: "consultant" }, { key: "medical" }] },
-  { title: "security",           options: [{ key: "security" }] },
+  { title: "doctorServices", options: [{ key: "consultant" }, { key: "medical" }] },
+  { title: "security", options: [{ key: "security" }] },
 ]
 
 const AWARENESS_ENUMS = [
@@ -290,20 +291,36 @@ function FloatingTextarea({ label, value, onChange, rows = 3 }) {
   )
 }
 
-function TextIconButton({ icon: Icon, children, onClick, variant = "solid", className = "", disabled = false }) {
+function TextIconButton({
+  icon: Icon,
+  children,
+  onClick,
+  variant = "solid",
+  className = "",
+  disabled = false,
+  iconPosition = "right", // NEW: "left" or "right"
+}) {
   const base =
     "inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-red-500"
   const styles =
     variant === "solid"
       ? "bg-red-600 text-white hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed"
       : "border border-gray-300 bg-white text-gray-800 hover:bg-gray-50 disabled:opacity-60 disabled:cursor-not-allowed"
+
   return (
-    <button type="button" onClick={onClick} className={`${base} ${styles} ${className}`} disabled={disabled}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`${base} ${styles} ${className}`}
+      disabled={disabled}
+    >
+      {iconPosition === "left" && <Icon className="h-4 w-4" />}
       {children}
-      <Icon className="h-4 w-4" />
+      {iconPosition === "right" && <Icon className="h-4 w-4" />}
     </button>
   )
 }
+
 
 function AnimatedDropdown({ icon: Icon, options, selected, onSelect, placeholder = "Select..." }) {
   const [open, setOpen] = useState(false)
@@ -386,7 +403,7 @@ function Stars({ value = 0, onChange, label }) {
 }
 
 /* ---------- Controlled ServiceFeedback ---------- */
-function ServiceFeedback({ title, options, t, value, onRate, selected, onSelect }) {
+function ServiceFeedback({ title, options, t, ratings, onRate, selected, onSelect }) {
   return (
     <div className="border flex flex-col md:flex-row justify-between w-full gap-3 md:items-center rounded-xl md:px-5 py-3 mb-2 px-3 bg-white shadow-sm">
       <div>
@@ -398,7 +415,7 @@ function ServiceFeedback({ title, options, t, value, onRate, selected, onSelect 
                 type="radio"
                 name={title}
                 value={opt.key}
-                checked={selected === opt.key || (options.length === 1 && opt.key === options[0].key)}
+                checked={selected === opt.key}
                 onChange={() => onSelect?.(opt.key)}
                 className="accent-red-600 w-[15px] h-[15px]"
               />
@@ -409,7 +426,10 @@ function ServiceFeedback({ title, options, t, value, onRate, selected, onSelect 
       </div>
 
       <div>
-        <Stars value={value || 0} onChange={(v) => onRate(title, v)} />
+        <Stars
+          value={typeof ratings === "object" ? ratings[selected] || 0 : ratings}
+          onChange={(v) => onRate(title, selected, v)}
+        />
       </div>
     </div>
   )
@@ -450,13 +470,20 @@ export default function OPDFeedback() {
   )
 
   // Ratings
-  const [ratings, setRatings] = useState({
-    appointment: 0,
-    receptionStaff: 0,
-    diagnosticServices: 0,
-    doctorServices: 0,
-    security: 0,
-  })
+const [ratings, setRatings] = useState({
+  appointment: 0,
+  receptionStaff: 0,
+  diagnosticServices: {
+    radiology: 0,
+    pathology: 0,
+  },
+  doctorServices: {
+    consultant: 0,
+    medical: 0,
+  },
+  security: 0,
+})
+
   const ratedCount = useMemo(
     () => Object.values(ratings).filter((v) => typeof v === "number" && v >= 1 && v <= 5).length,
     [ratings],
@@ -497,10 +524,21 @@ export default function OPDFeedback() {
     return Object.keys(e).length === 0
   }
 
-  const onRate = (serviceKey, stars) => {
-    setFeedbackError("")
-    setRatings((prev) => ({ ...prev, [serviceKey]: stars }))
-  }
+const onRate = (serviceKey, optionKey, stars) => {
+  setFeedbackError("")
+  setRatings((prev) => {
+    if (typeof prev[serviceKey] === "object") {
+      return {
+        ...prev,
+        [serviceKey]: {
+          ...prev[serviceKey],
+          [optionKey]: stars,
+        },
+      }
+    }
+    return { ...prev, [serviceKey]: stars }
+  })
+}
 
   const compactRatings = (obj) =>
     Object.fromEntries(Object.entries(obj).filter(([, v]) => typeof v === "number" && v >= 1 && v <= 5))
@@ -559,12 +597,12 @@ export default function OPDFeedback() {
     step === 0
       ? true
       : step === 1
-      ? name.trim() && mobile.replace(/\D/g, "").length === 10 && doctor
-      : step === 2
-      ? ratedCount >= MIN_REQUIRED_RATINGS
-      : step === 4
-      ? nps !== null
-      : true
+        ? name.trim() && mobile.replace(/\D/g, "").length === 10 && doctor
+        : step === 2
+          ? ratedCount >= MIN_REQUIRED_RATINGS
+          : step === 4
+            ? nps !== null
+            : true
 
   const activeDot = step
 
@@ -577,13 +615,16 @@ export default function OPDFeedback() {
             {step === 0 && (
               <motion.section key="lang" variants={sectionVariants} initial="initial" animate="animate" exit="exit">
                 <div className="flex flex-col items-center text-center">
-                  <img src={logo} alt="Hospital logo" className="h-16 w-auto mb-4" crossOrigin="anonymous" />
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-gray-900">{t("step0Title")}</h1>
-                  <p className="mt-2  text-gray-700">{t("step0Subtitle")}</p>
+                  <div className=" min-h-[270px] w-[100%]">
 
+
+                    <img src={logo} alt="Hospital logo" className="h-16 w-fit  mx-auto mb-4" crossOrigin="anonymous" />
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-gray-900">{t("step0Title")}</h1>
+                    <p className="mt-2  text-gray-700">{t("step0Subtitle")}</p>
+                  </div>
                   <div className="mt-20 w-full text-left">
                     <p className="text-sm font-semibold text-gray-900">{t("chooseLang")}</p>
-                    <div className="mt-3 flex flex-wrap gap-3">
+                    <div className="mt-3 flex flex-wrap gap-2">
                       {[
                         { id: "en", label: dict.en.english },
                         { id: "hi", label: dict.en.hindi },
@@ -593,9 +634,8 @@ export default function OPDFeedback() {
                           key={opt.id}
                           type="button"
                           onClick={() => setLng(opt.id)}
-                          className={`inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-sm font-semibold transition ${
-                            lng === opt.id ? "bg-red-600 text-white" : "border border-gray-200 bg-white text-gray-800 hover:border-red-300"
-                          }`}
+                          className={`inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-sm font-semibold transition ${lng === opt.id ? "bg-red-600 text-white" : "border border-gray-200 bg-white text-gray-800 hover:border-red-300"
+                            }`}
                         >
                           <Languages className="h-4 w-4" />
                           {opt.label}
@@ -645,7 +685,8 @@ export default function OPDFeedback() {
                 </div>
 
                 <div className="mt-8 flex items-center justify-between">
-                  <TextIconButton icon={ArrowLeft} onClick={() => setStep(0)} variant="outline">
+                  <TextIconButton icon={ArrowLeft}   iconPosition="left"
+ onClick={() => setStep(0)} variant="outline">
                     {t("back")}
                   </TextIconButton>
                   <TextIconButton
@@ -670,18 +711,21 @@ export default function OPDFeedback() {
                   <h2 className="text-2xl font-[600] text-gray-900">{t("step2Title")}</h2>
                 </div>
 
-                {servicesConfig.map((srv) => (
-                  <ServiceFeedback
-                    key={srv.title}
-                    title={srv.title}
-                    options={srv.options}
-                    t={t}
-                    value={ratings[srv.title] || 0}
-                    onRate={onRate}
-                    selected={selectedOptions[srv.title]}
-                    onSelect={(opt) => setSelectedOptions((p) => ({ ...p, [srv.title]: opt }))}
-                  />
-                ))}
+          {servicesConfig.map((srv) => (
+  <ServiceFeedback
+    key={srv.title}
+    title={srv.title}
+    options={srv.options}
+    t={t}
+    ratings={ratings[srv.title]}
+    onRate={onRate}
+    selected={selectedOptions[srv.title]}
+    onSelect={(opt) =>
+      setSelectedOptions((p) => ({ ...p, [srv.title]: opt }))
+    }
+  />
+))}
+
 
                 {/* Rated count + error */}
                 <div className="mt-2">
@@ -698,7 +742,8 @@ export default function OPDFeedback() {
                 </div>
 
                 <div className="mt-8 flex items-center justify-between">
-                  <TextIconButton icon={ArrowLeft} onClick={() => setStep(1)} variant="outline">
+                  <TextIconButton icon={ArrowLeft}   iconPosition="left"
+ onClick={() => setStep(1)} variant="outline">
                     {t("back")}
                   </TextIconButton>
                   <TextIconButton
@@ -729,27 +774,44 @@ export default function OPDFeedback() {
             {step === 3 && (
               <motion.section key="awareness" variants={sectionVariants} initial="initial" animate="animate" exit="exit">
                 <h2 className="text-2xl font-[600] text-gray-900 text-center">{t("step3Title")}</h2>
-                <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {dict[lng].awarenessOptions.map((opt, idx) => {
-                    const active = awarenessIdx === idx
-                    return (
-                      <button
-                        key={opt}
-                        type="button"
-                        onClick={() => setAwarenessIdx(idx)}
-                        className={`rounded-[8px] px-3 py-2 text-sm font-medium transition border ${
-                          active ? "border-red-600 bg-red-50 text-red-700" : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
-                        }`}
-                        aria-pressed={active}
-                      >
-                        {opt}
-                      </button>
-                    )
-                  })}
-                </div>
+<div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+  {dict[lng].awarenessOptions.map((opt, idx) => {
+    const active = awarenessIdx === idx
+    return (
+      <button
+        key={opt}
+        type="button"
+        onClick={() => setAwarenessIdx(idx)}
+        className={`flex items-center justify-center gap-2 rounded-[8px] px-3 py-2 text-sm font-medium transition border relative
+          ${active
+            ? "border-red-600 bg-red-50 text-red-700"
+            : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
+          }`}
+        aria-pressed={active}
+      >
+        {/* Animated checkmark */}
+        <AnimatePresence>
+          {active && (
+            <motion.span
+              initial={{ scale: 0, opacity: 0, x: -8 }}
+              animate={{ scale: 1, opacity: 1, x: 0 }}
+              exit={{ scale: 0, opacity: 0, x: -8 }}
+              transition={{ duration: 0.2 }}
+              className="text-green-600 flex-shrink-0"
+            >
+              <Check size={18} strokeWidth={4} />
+            </motion.span>
+          )}
+        </AnimatePresence>
+        {opt}
+      </button>
+    )
+  })}
+</div>
 
                 <div className="mt-8 flex items-center justify-between">
-                  <TextIconButton icon={ArrowLeft} onClick={() => setStep(2)} variant="outline">
+                  <TextIconButton icon={ArrowLeft}   iconPosition="left"
+ onClick={() => setStep(2)} variant="outline">
                     {t("back")}
                   </TextIconButton>
                   <TextIconButton icon={ArrowRight} onClick={() => setStep(4)} variant="solid" className={theme.primaryBg}>
@@ -849,7 +911,7 @@ export default function OPDFeedback() {
       <AnimatePresence>
         {showSaved && (
           <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div initial={{ opacity: 0, y: 12, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.98 }} className={`${theme.card} w-full max-w-sm p-6 text-center`}>
+            <motion.div initial={{ opacity: 0, y: 12, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.98 }} className={`${theme.card} w-full bg-[#fff] max-w-sm p-6 text-center`}>
               <CheckCircle2 className="mx-auto h-10 w-10 text-green-600" />
               <h3 className="mt-2 text-lg font-bold text-gray-900">{t("thanksTitle")}</h3>
               <p className="mt-1 text-sm text-gray-600">{t("thanksBody")}</p>
