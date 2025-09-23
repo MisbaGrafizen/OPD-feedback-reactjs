@@ -14,7 +14,7 @@ import {
   User,
   Stethoscope,
 } from "lucide-react"
-import { ApiPost } from "../../helper/axios"
+import { ApiDelete, ApiGet, ApiPost } from "../../helper/axios"
 
 import logo from "../../../public/images/Logo/GirirajFeedBackLogo.jpg"
 import emoji1 from "../../../public/images/emojiFolder/11.png"
@@ -36,8 +36,10 @@ const theme = {
 
 const dict = {
   en: {
-    step0Title: "Thank you for helping us in improving patient experience",
-    step0Subtitle: "We value your feedback",
+    step0Title: "Welcome to SHREE GIRIRAJ HOSPITAL",
+    step0Subtitle: "With passion, commitment and experience the team at Shree Giriraj Hospital focuses on serving their patients with the utmost possible care and compassion.",
+    welcomeP2:
+      "We are glad to hear you out. Your feedback matters to us and helps us improve our services. Let us know by providing a quick review on our services.",
     chooseLang: "Choose your language",
     english: "English",
     hindi: "हिंदी",
@@ -62,8 +64,8 @@ const dict = {
     appointment: "Appointment",
     receptionStaff: "Reception Staff",
     diagnosticServices: "Diagnostic Services",
-    radiology: "Radiology",
-    pathology: "Pathology",
+    radiologyDiagnosticServices: "Diagnostic Services (Radiology)",
+    pathologyDiagnosticServices: "Diagnostic Services (Pathology)",
     doctorServices: "Doctor Services",
     consultant: "Consultant",
     medical: "Medical Officer",
@@ -91,8 +93,10 @@ const dict = {
     thanksBody: "Your feedback has been submitted successfully.",
   },
   hi: {
-    step0Title: "रोगी अनुभव को बेहतर बनाने में हमारी मदद करने के लिए धन्यवाद",
-    step0Subtitle: "हम आपके फीडबैक को महत्व देते हैं",
+    step0Title: "SHREE GIRIRAJ HOSPITAL में आपका स्वागत है",
+    step0Subtitle: "समर्पण, प्रतिबद्धता और अनुभव के साथ श्री गिरिराज अस्पताल की टीम रोगियों की सेवा सर्वोत्तम देखभाल और करुणा से करती है।",
+    welcomeP2:
+      "हमें आपकी बात सुनकर खुशी होगी। आपका फीडबैक हमारे लिए महत्वपूर्ण है और हमारी सेवाओं को बेहतर बनाने में मदद करता है। कृपया त्वरित समीक्षा देकर हमें बताएं।",
     chooseLang: "भाषा चुनें",
     english: "English",
     hindi: "हिंदी",
@@ -117,8 +121,8 @@ const dict = {
     appointment: "अपॉइंटमेंट",
     receptionStaff: "रिसेप्शन स्टाफ",
     diagnosticServices: "डायग्नोस्टिक सेवाएँ",
-    radiology: "रेडियोलॉजी",
-    pathology: "पैथोलॉजी",
+    radiologyDiagnosticServices: "डायग्नोस्टिक सेवाएँ (रेडियोलॉजी)",
+    pathologyDiagnosticServices: "डायग्नोस्टिक सेवाएँ (पैथोलॉजी)",
     doctorServices: "डॉक्टर सेवाएँ",
     consultant: "कंसल्टेंट",
     medical: "मेडिकल ऑफिसर",
@@ -146,8 +150,10 @@ const dict = {
     thanksBody: "आपका फीडबैक सफलतापूर्वक जमा हो गया है।",
   },
   gu: {
-    step0Title: "દર્દી અનુભવ સુધારવામાં અમને મદદ કરવા બદલ આભાર",
-    step0Subtitle: "અમે તમારા પ્રતિસાદને મૂલ્ય આપીએ છીએ",
+    step0Title: "SHREE GIRIRAJ HOSPITAL માં આપનું સ્વાગત છે",
+    step0Subtitle: "સમર્પણ, પ્રતિબદ્ધતા અને અનુભવ સાથે શ્રી ગિરિરાજ હોસ્પિટલની ટીમ દર્દીઓને શ્રેષ્ઠ કાળજી અને કરુણા સાથે સેવા આપે છે.",
+    welcomeP2:
+      "અમને તમારો અવાજ સાંભળવો ગમે છે. તમારો પ્રતિસાદ અમારે માટે મહત્વનો છે અને અમારી સેવાઓ સુધારવામાં મદદ કરે છે. કૃપા કરીને ઝડપી સમીક્ષા આપો.",
     chooseLang: "ભાષા પસંદ કરો",
     english: "English",
     hindi: "હિન્દી",
@@ -172,8 +178,8 @@ const dict = {
     appointment: "અપોઇન્ટમેન્ટ",
     receptionStaff: "રિસેપ્શન સ્ટાફ",
     diagnosticServices: "ડાયગ્નોસ્ટિક સેવાઓ",
-    radiology: "રેડિયોલોજી",
-    pathology: "પેઠોલોજી",
+    radiologyDiagnosticServices: "ડાયગ્નોસ્ટિક સેવાઓ (રેડિયોલોજી)",
+    pathologyDiagnosticServices: "ડાયગ્નોસ્ટિક સેવાઓ (પેઠોલોજી)",
     doctorServices: "ડોક્ટર સેવાઓ",
     consultant: "કન્સલ્ટન્ટ",
     medical: "મેડિકલ ઓફિસર",
@@ -209,8 +215,9 @@ const MIN_REQUIRED_RATINGS = 3
 const servicesConfig = [
   { title: "appointment", options: [{ key: "appointment" }] },
   { title: "receptionStaff", options: [{ key: "receptionStaff" }] },
-  { title: "diagnosticServices", options: [{ key: "radiology" }, { key: "pathology" }] },
-  { title: "doctorServices", options: [{ key: "consultant" }, { key: "medical" }] },
+  { title: "radiologyDiagnosticServices", options: [{ key: "radiologyDiagnosticServices" }] },
+  { title: "pathologyDiagnosticServices", options: [{ key: "pathologyDiagnosticServices" }] },
+  { title: "doctorServices", options: [{ key: "doctorServices" }] },
   { title: "security", options: [{ key: "security" }] },
 ]
 
@@ -409,7 +416,7 @@ function ServiceFeedback({ title, options, t, ratings, onRate, selected, onSelec
       <div>
         <h3 className="text-[15px] font-[500] mb-1">{t(title) || title}</h3>
         <div className="flex gap-4">
-          {options.map((opt) => (
+          {/* {options.map((opt) => (
             <label key={opt.key} className="flex items-center gap-2 text-[13px] cursor-pointer">
               <input
                 type="radio"
@@ -421,7 +428,7 @@ function ServiceFeedback({ title, options, t, ratings, onRate, selected, onSelec
               />
               {t(opt.key) || opt.key}
             </label>
-          ))}
+          ))} */}
         </div>
       </div>
 
@@ -470,19 +477,15 @@ export default function OPDFeedback() {
   )
 
   // Ratings
-const [ratings, setRatings] = useState({
-  appointment: 0,
-  receptionStaff: 0,
-  diagnosticServices: {
-    radiology: 0,
-    pathology: 0,
-  },
-  doctorServices: {
-    consultant: 0,
-    medical: 0,
-  },
-  security: 0,
-})
+  const [ratings, setRatings] = useState({
+    appointment: 0,
+    receptionStaff: 0,
+    radiologyDiagnosticServices: 0,
+    pathologyDiagnosticServices: 0,
+    doctorServices: 0,
+    security: 0,
+  })
+
 
   const ratedCount = useMemo(
     () => Object.values(ratings).filter((v) => typeof v === "number" && v >= 1 && v <= 5).length,
@@ -491,6 +494,8 @@ const [ratings, setRatings] = useState({
   const [feedbackError, setFeedbackError] = useState("")
   const [comments, setComments] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [doctors, setDoctors] = useState([]);
+
 
   // Sub-service selections → to send doctorType & diagnosticType
   const [selectedOptions, setSelectedOptions] = useState({
@@ -524,21 +529,27 @@ const [ratings, setRatings] = useState({
     return Object.keys(e).length === 0
   }
 
-const onRate = (serviceKey, optionKey, stars) => {
-  setFeedbackError("")
-  setRatings((prev) => {
-    if (typeof prev[serviceKey] === "object") {
-      return {
-        ...prev,
-        [serviceKey]: {
-          ...prev[serviceKey],
-          [optionKey]: stars,
-        },
+  const onRate = (serviceKey, optionKey, stars) => {
+    setFeedbackError("")
+    setRatings((prev) => ({
+      ...prev,
+      [serviceKey]: stars,
+    }))
+  }
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await ApiGet("/doctors"); 
+        if (res?.data) {
+          setDoctors(res.data); // [{ _id, name }]
+        }
+      } catch (err) {
+        console.error("Error fetching doctors:", err);
       }
-    }
-    return { ...prev, [serviceKey]: stars }
-  })
-}
+    };
+    fetchDoctors();
+  }, []);
 
   const compactRatings = (obj) =>
     Object.fromEntries(Object.entries(obj).filter(([, v]) => typeof v === "number" && v >= 1 && v <= 5))
@@ -608,7 +619,7 @@ const onRate = (serviceKey, optionKey, stars) => {
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
-      <main className="mx-auto max-w-[760px] px-4 py-8" lang={lng}>
+      <main className="mx-auto max-w-4xl px-4 py-8" lang={lng}>
         <div className={`${theme.card} p-6 sm:p-8`}>
           <AnimatePresence mode="wait">
             {/* Step 0: Language */}
@@ -621,8 +632,9 @@ const onRate = (serviceKey, optionKey, stars) => {
                     <img src={logo} alt="Hospital logo" className="h-16 w-fit  mx-auto mb-4" crossOrigin="anonymous" />
                     <h1 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-gray-900">{t("step0Title")}</h1>
                     <p className="mt-2  text-gray-700">{t("step0Subtitle")}</p>
+                    <p className="mt-3 text-gray-700">{t("welcomeP2")}</p>
                   </div>
-                  <div className="mt-20 w-full text-left">
+                  <div className="mt-10 w-full text-left">
                     <p className="text-sm font-semibold text-gray-900">{t("chooseLang")}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {[
@@ -679,14 +691,25 @@ const onRate = (serviceKey, optionKey, stars) => {
                   />
 
                   <div>
-                    <AnimatedDropdown icon={Stethoscope} options={DOCTORS} selected={doctor} onSelect={setDoctor} placeholder={t("doctorName")} />
+                    <AnimatedDropdown
+                      icon={Stethoscope}
+                      options={doctors.map((d) => d.name)}
+                      selected={doctors.find((d) => d._id === doctor)?.name || ""}
+                      onSelect={(opt) => {
+                        const selectedDoc = doctors.find((d) => d.name === opt);
+                        if (selectedDoc) {
+                          setDoctor(selectedDoc._id);
+                        }
+                      }}
+                      placeholder={t("doctorName")}
+                    />
                     {errors.doctor ? <p className="mt-1 text-xs text-red-600">{errors.doctor}</p> : null}
                   </div>
                 </div>
 
                 <div className="mt-8 flex items-center justify-between">
-                  <TextIconButton icon={ArrowLeft}   iconPosition="left"
- onClick={() => setStep(0)} variant="outline">
+                  <TextIconButton icon={ArrowLeft} iconPosition="left"
+                    onClick={() => setStep(0)} variant="outline">
                     {t("back")}
                   </TextIconButton>
                   <TextIconButton
@@ -711,20 +734,20 @@ const onRate = (serviceKey, optionKey, stars) => {
                   <h2 className="text-2xl font-[600] text-gray-900">{t("step2Title")}</h2>
                 </div>
 
-          {servicesConfig.map((srv) => (
-  <ServiceFeedback
-    key={srv.title}
-    title={srv.title}
-    options={srv.options}
-    t={t}
-    ratings={ratings[srv.title]}
-    onRate={onRate}
-    selected={selectedOptions[srv.title]}
-    onSelect={(opt) =>
-      setSelectedOptions((p) => ({ ...p, [srv.title]: opt }))
-    }
-  />
-))}
+                {servicesConfig.map((srv) => (
+                  <ServiceFeedback
+                    key={srv.title}
+                    title={srv.title}
+                    options={srv.options}
+                    t={t}
+                    ratings={ratings[srv.title]}
+                    onRate={onRate}
+                    selected={selectedOptions[srv.title]}
+                    onSelect={(opt) =>
+                      setSelectedOptions((p) => ({ ...p, [srv.title]: opt }))
+                    }
+                  />
+                ))}
 
 
                 {/* Rated count + error */}
@@ -742,8 +765,8 @@ const onRate = (serviceKey, optionKey, stars) => {
                 </div>
 
                 <div className="mt-8 flex items-center justify-between">
-                  <TextIconButton icon={ArrowLeft}   iconPosition="left"
- onClick={() => setStep(1)} variant="outline">
+                  <TextIconButton icon={ArrowLeft} iconPosition="left"
+                    onClick={() => setStep(1)} variant="outline">
                     {t("back")}
                   </TextIconButton>
                   <TextIconButton
@@ -774,44 +797,44 @@ const onRate = (serviceKey, optionKey, stars) => {
             {step === 3 && (
               <motion.section key="awareness" variants={sectionVariants} initial="initial" animate="animate" exit="exit">
                 <h2 className="text-2xl font-[600] text-gray-900 text-center">{t("step3Title")}</h2>
-<div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
-  {dict[lng].awarenessOptions.map((opt, idx) => {
-    const active = awarenessIdx === idx
-    return (
-      <button
-        key={opt}
-        type="button"
-        onClick={() => setAwarenessIdx(idx)}
-        className={`flex items-center justify-center gap-2 rounded-[8px] px-3 py-2 text-sm font-medium transition border relative
+                <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {dict[lng].awarenessOptions.map((opt, idx) => {
+                    const active = awarenessIdx === idx
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => setAwarenessIdx(idx)}
+                        className={`flex items-center justify-center gap-2 rounded-[8px] px-3 py-2 text-sm font-medium transition border relative
           ${active
-            ? "border-red-600 bg-red-50 text-red-700"
-            : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
-          }`}
-        aria-pressed={active}
-      >
-        {/* Animated checkmark */}
-        <AnimatePresence>
-          {active && (
-            <motion.span
-              initial={{ scale: 0, opacity: 0, x: -8 }}
-              animate={{ scale: 1, opacity: 1, x: 0 }}
-              exit={{ scale: 0, opacity: 0, x: -8 }}
-              transition={{ duration: 0.2 }}
-              className="text-green-600 flex-shrink-0"
-            >
-              <Check size={18} strokeWidth={4} />
-            </motion.span>
-          )}
-        </AnimatePresence>
-        {opt}
-      </button>
-    )
-  })}
-</div>
+                            ? "border-red-600 bg-red-50 text-red-700"
+                            : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
+                          }`}
+                        aria-pressed={active}
+                      >
+                        {/* Animated checkmark */}
+                        <AnimatePresence>
+                          {active && (
+                            <motion.span
+                              initial={{ scale: 0, opacity: 0, x: -8 }}
+                              animate={{ scale: 1, opacity: 1, x: 0 }}
+                              exit={{ scale: 0, opacity: 0, x: -8 }}
+                              transition={{ duration: 0.2 }}
+                              className="text-green-600 flex-shrink-0"
+                            >
+                              <Check size={18} strokeWidth={4} />
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                        {opt}
+                      </button>
+                    )
+                  })}
+                </div>
 
                 <div className="mt-8 flex items-center justify-between">
-                  <TextIconButton icon={ArrowLeft}   iconPosition="left"
- onClick={() => setStep(2)} variant="outline">
+                  <TextIconButton icon={ArrowLeft} iconPosition="left"
+                    onClick={() => setStep(2)} variant="outline">
                     {t("back")}
                   </TextIconButton>
                   <TextIconButton icon={ArrowRight} onClick={() => setStep(4)} variant="solid" className={theme.primaryBg}>
