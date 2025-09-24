@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   ChevronDown,
   Check,
-  Languages,
+  Languages,Search,
   Phone,
   StarIcon,
   User,
@@ -328,10 +328,18 @@ function TextIconButton({
   )
 }
 
-
-function AnimatedDropdown({ icon: Icon, options, selected, onSelect, placeholder = "Select..." }) {
+ function AnimatedDropdown({
+  icon: Icon,
+  options,
+  selected,
+  onSelect,
+  placeholder = "Select..."
+}) {
   const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState("")
   const ref = useRef(null)
+
+  // Close when clicking outside
   useEffect(() => {
     function onDoc(e) {
       if (!ref.current) return
@@ -340,8 +348,15 @@ function AnimatedDropdown({ icon: Icon, options, selected, onSelect, placeholder
     document.addEventListener("mousedown", onDoc)
     return () => document.removeEventListener("mousedown", onDoc)
   }, [])
+
+  // Filter options
+  const filtered = options.filter(opt =>
+    opt.toLowerCase().includes(query.toLowerCase())
+  )
+
   return (
     <div ref={ref} className="relative">
+      {/* Main Button */}
       <div className="relative rounded-[14px] border border-gray-200 bg-white focus-within:border-red-400">
         {Icon ? (
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -350,47 +365,74 @@ function AnimatedDropdown({ icon: Icon, options, selected, onSelect, placeholder
         ) : null}
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen(v => !v)}
           className={`w-full text-left ${Icon ? "pl-12" : "pl-4"} pr-10 py-3 rounded-[14px]`}
           aria-haspopup="listbox"
           aria-expanded={open}
         >
-          <span className={`text-sm ${selected ? "text-gray-900" : "text-gray-500"}`}>{selected || placeholder}</span>
+          <span
+            className={`text-sm ${selected ? "text-gray-900" : "text-gray-500"}`}
+          >
+            {selected || placeholder}
+          </span>
         </button>
         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
       </div>
 
+      {/* Dropdown */}
       <AnimatePresence>
         {open && (
-          <motion.ul
+          <motion.div
             initial={{ opacity: 0, y: -8, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.18 }}
-            className="absolute z-30 mt-2 w-full max-h-60 overflow-auto rounded-md border border-gray-200 bg-white shadow-lg"
-            role="listbox"
+            className="absolute z-30 mt-2 w-full rounded-md border border-gray-200 bg-white shadow-lg"
           >
-            {options.map((opt, idx) => (
-              <motion.li key={opt} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.02 }}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onSelect(opt)
-                    setOpen(false)
-                  }}
-                  className="w-full px-3 py-2 text-left hover:bg-red-50 focus:bg-red-50 text-gray-900"
+            {/* Search Bar */}
+            <div className="flex items-center px-3 py-2 border-b border-gray-200">
+              <Search className="w-4 h-4 text-gray-400 mr-2" />
+              <input
+                type="text"
+                placeholder="Search..."
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                className="w-full text-sm outline-none border-0 focus:ring-0"
+              />
+            </div>
+
+            {/* Options */}
+            <ul className="max-h-60 overflow-auto" role="listbox">
+              {filtered.length === 0 && (
+                <li className="px-3 py-2 text-gray-400 text-sm">No results</li>
+              )}
+              {filtered.map((opt, idx) => (
+                <motion.li
+                  key={opt}
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.02 }}
                 >
-                  {opt}
-                </button>
-              </motion.li>
-            ))}
-          </motion.ul>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onSelect(opt)
+                      setOpen(false)
+                      setQuery("")
+                    }}
+                    className="w-full px-3 py-2 text-left hover:bg-red-50 focus:bg-red-50 text-gray-900"
+                  >
+                    {opt}
+                  </button>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
   )
 }
-
 /* ---------- Stars ---------- */
 function Stars({ value = 0, onChange, label }) {
   const stars = [1, 2, 3, 4, 5]
