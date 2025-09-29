@@ -93,10 +93,10 @@ const dict = {
     thanksBody: "Your feedback has been submitted successfully.",
   },
   hi: {
-    step0Title: "SHREE GIRIRAJ HOSPITAL में आपका स्वागत है",
-    step0Subtitle: "समर्पण, प्रतिबद्धता और अनुभव के साथ श्री गिरिराज अस्पताल की टीम रोगियों की सेवा सर्वोत्तम देखभाल और करुणा से करती है।",
+    step0Title: "श्री गिरिराज अस्पताल में आपका स्वागत है",
+    step0Subtitle: "प्रेरणा, समर्पण और अनुभव के साथ, श्री गिरिराज अस्पताल की टीम मरीजों को बेहतर से बेहतर देखभाल और करुणा से सेवा देने के लिए प्रतिबद्ध है।",
     welcomeP2:
-      "हमें आपकी बात सुनकर खुशी होगी। आपका फीडबैक हमारे लिए महत्वपूर्ण है और हमारी सेवाओं को बेहतर बनाने में मदद करता है। कृपया त्वरित समीक्षा देकर हमें बताएं।",
+      "आपका सुझाव हमारे लिए बहुत महत्वपूर्ण है और हमारी सेवाओं को और अच्छा बनाने में मदद करता है। कृपया हमें अपनी राय दें।",
     chooseLang: "भाषा चुनें",
     english: "English",
     hindi: "हिंदी",
@@ -106,9 +106,9 @@ const dict = {
     next: "आगे",
     submit: "जमा करें",
 
-    step1Title: "Personal Details",
-    name: "मरीज़ का नाम (Patient Name)",
-    mobile: "मोबाइल नंबर (Contact No)",
+    step1Title: "व्यक्तिगत विवरण",
+    name: "नाम",
+    mobile: "मोबाइल नंबर",
     doctorName: "कंसल्टेंट डॉक्टर का नाम",
 
     vName: "नाम आवश्यक है",
@@ -127,13 +127,13 @@ const dict = {
     consultant: "कंसल्टेंट",
     medical: "मेडिकल ऑफिसर",
     security: "सिक्योरिटी",
-    comments: "टिप्पणी (वैकल्पिक)",
+    comments: "आपका सुझाव",
 
-    step3Title: "आप हमारे अस्पताल के बारे में कैसे जानते हैं?",
+    step3Title: "आपको हमारे अस्पताल के बारे में जानकारी कैसे मिली?",
     awarenessOptions: [
       "सोशल मीडिया",
       "डॉक्टर के माध्यम से",
-      "होर्डिंग",
+      "पोस्टर/होर्डिंग",
       "रेडियो/एफएम",
       "वेबसाइट",
       "दोस्त/रिश्तेदार",
@@ -147,13 +147,13 @@ const dict = {
     npsLikely: "संभावित",
 
     thanksTitle: "धन्यवाद!",
-    thanksBody: "आपका फीडबैक सफलतापूर्वक जमा हो गया है।",
+    thanksBody: "हमारी सेवा के बारे में अपनी प्रतिक्रिया देने के लिए धन्यवाद।",
   },
   gu: {
-    step0Title: "SHREE GIRIRAJ HOSPITAL માં આપનું સ્વાગત છે",
-    step0Subtitle: "સમર્પણ, પ્રતિબદ્ધતા અને અનુભવ સાથે શ્રી ગિરિરાજ હોસ્પિટલની ટીમ દર્દીઓને શ્રેષ્ઠ કાળજી અને કરુણા સાથે સેવા આપે છે.",
+    step0Title: "શ્રી ગિરિરાજ હોસ્પિટલમાં આપનું સ્વાગત છે",
+    step0Subtitle: "પ્રેરણા, પ્રતિબદ્ધતા અને અનુભવ સાથે, શ્રી ગિરિરાજ હોસ્પિટલની ટીમ દર્દીઓને શ્રેષ્ઠ કાળજી અને કરુણાભાવે સેવા આપવા માટે સમર્પિત છે.",
     welcomeP2:
-      "અમને તમારો અવાજ સાંભળવો ગમે છે. તમારો પ્રતિસાદ અમારે માટે મહત્વનો છે અને અમારી સેવાઓ સુધારવામાં મદદ કરે છે. કૃપા કરીને ઝડપી સમીક્ષા આપો.",
+      "આપનો પ્રતિસાદ અમારે માટે અત્યંત મહત્વનો છે અને અમારી સેવાઓને વધુ ઉત્તમ બનાવવામાં મદદરૂપ બને છે. કૃપા કરીને અમારી સેવાઓ અંગે તમારો પ્રતિસાદ આપશો",
     chooseLang: "ભાષા પસંદ કરો",
     english: "English",
     hindi: "હિન્દી",
@@ -163,16 +163,16 @@ const dict = {
     next: "આગળ",
     submit: "સબમિટ",
 
-    step1Title: "Persional Details",
-    name: "દર્દીનું નામ (Patient Name)",
-    mobile: "મોબાઇલ નંબર (Contact No)*",
+    step1Title: "વ્યક્તિગત વિગતો",
+    name: "નામ",
+    mobile: "મોબાઇલ નંબર",
     doctorName: "કન્સલ્ટન્ટ ડોક્ટરનું નામ",
 
     vName: "દર્દીનું નામ આવશ્યક છે",
     vMobile: "કૃપા કરીને 10 અંકોનો મોબાઇલ નંબર દાખલ કરો",
     vDoctor: "કન્સલ્ટન્ટ ડોક્ટર પસંદ કરો",
 
-    step2Title: "નીચેની સેવાઓને રેટ કરો.",
+    step2Title: "કૃપા કરીને નીચે આપેલી સેવાઓને રેટ કરો.",
     mustRateAtLeast: "ઓછામાં ઓછા {ન} સેવાઓને રેટ કરો. હાલ: {c}.",
     ratedCount: "{n} માંથી {c} સેવાઓ રેટ થઈ",
     appointment: "એપોઇન્ટમેન્ટ બુકિંગ",
@@ -184,13 +184,13 @@ const dict = {
     consultant: "કન્સલ્ટન્ટ",
     medical: "મેડિકલ ઓફિસર",
     security: "સિક્યુરિટી",
-    comments: "ટિપ્પણી (વૈકલ્પિક)",
+    comments: "તમારી સૂચનાઓ લખો",
 
     step3Title: "અમારા હોસ્પિટલ વિશે તમને કેવી રીતે ખબર પડી?",
     awarenessOptions: [
       "સોશિયલ મીડિયા",
       "ડોક્ટર દ્વારા",
-      "હોર્ડિંગ",
+      "પોસ્ટર/હોર્ડિંગ",
       "રેડિયો/એફએમ",
       "વેબસાઇટ",
       "મિત્રો/સગાં",
@@ -204,7 +204,7 @@ const dict = {
     npsLikely: "ખૂબ શક્ય",
 
     thanksTitle: "આભાર!",
-    thanksBody: "તમારો પ્રતિસાદ સફળતાપૂર્વક સબમિટ થયો છે.",
+    thanksBody: "અમારી સેવા વિશે તમારી પ્રતિસાદ આપવાના માટે આભાર.",
   },
 }
 
@@ -560,6 +560,36 @@ export default function OPDFeedback() {
       document.documentElement.dir = "ltr"
     }
   }, [lng])
+
+  // Auto-redirect after Thank-you step
+useEffect(() => {
+  if (step === 5) {
+    const timer = setTimeout(() => {
+      // Reset everything and go to Step 0
+      setStep(0)
+      setName("")
+      setMobile("")
+      setDoctor("")
+      setErrors({})
+      setRatings({
+        appointment: 0,
+        receptionStaff: 0,
+        radiologyDiagnosticServices: 0,
+        pathologyDiagnosticServices: 0,
+        doctorServices: 0,
+        security: 0,
+      })
+      setComments("")
+      setAwarenessIdx(null)
+      setNps(null)
+      setFeedbackError("")
+      setSelectedOptions({ diagnosticServices: "radiology", doctorServices: "consultant" })
+    }, 10000)
+
+    return () => clearTimeout(timer)
+  }
+}, [step])
+
 
   const validateStep1 = () => {
     const e = {}
@@ -941,7 +971,7 @@ export default function OPDFeedback() {
                   <CheckCircle2 className="h-12 w-12 text-green-600" />
                   <h3 className="mt-3 text-2xl font-bold text-gray-900">{t("thanksTitle")}</h3>
                   <p className="mt-2 text-gray-700">{t("thanksBody")}</p>
-                  <div className="mt-6">
+                  {/* <div className="mt-6">
                     <TextIconButton
                       icon={ArrowRight}
                       onClick={() => {
@@ -962,7 +992,7 @@ export default function OPDFeedback() {
                     >
                       {t("next")}
                     </TextIconButton>
-                  </div>
+                  </div> */}
                 </div>
               </motion.section>
             )}
