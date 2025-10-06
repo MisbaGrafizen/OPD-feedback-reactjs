@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   ChevronDown,
   Check,
-  Languages,Search,
+  Languages, Search,
   Phone,
   StarIcon,
   User,
@@ -70,6 +70,7 @@ const dict = {
     consultant: "Consultant",
     medical: "Medical Officer",
     security: "Security",
+    cleanliness: "Cleanliness",
     comments: "Comments (optional)",
 
     step3Title: "How did you come to know about our hospital?",
@@ -93,8 +94,8 @@ const dict = {
     thanksBody: "Your feedback has been submitted successfully.",
   },
   hi: {
-    step0Title: "श्री गिरिराज अस्पताल में आपका स्वागत है",
-    step0Subtitle: "प्रेरणा, समर्पण और अनुभव के साथ, श्री गिरिराज अस्पताल की टीम मरीजों को बेहतर से बेहतर देखभाल और करुणा से सेवा देने के लिए प्रतिबद्ध है।",
+    step0Title: "श्री गिरिराज हॉस्पिटल में आपका स्वागत है",
+    step0Subtitle: "प्रेरणा, समर्पण और अनुभव के साथ, श्री गिरिराज हॉस्पिटल की टीम मरीजों को बेहतर से बेहतर देखभाल और करुणा से सेवा देने के लिए प्रतिबद्ध है।",
     welcomeP2:
       "आपका सुझाव हमारे लिए बहुत महत्वपूर्ण है और हमारी सेवाओं को और अच्छा बनाने में मदद करता है। कृपया हमें अपनी राय दें।",
     chooseLang: "भाषा चुनें",
@@ -125,6 +126,7 @@ const dict = {
     pathologyDiagnosticServices: "पैथोलॉजी सेवाएँ",
     doctorServices: "डॉक्टर सेवाएँ",
     consultant: "कंसल्टेंट",
+    cleanliness: "स्वच्छता",
     medical: "मेडिकल ऑफिसर",
     security: "सिक्योरिटी",
     comments: "आपका सुझाव",
@@ -134,7 +136,7 @@ const dict = {
       "सोशल मीडिया",
       "डॉक्टर के माध्यम से",
       "पोस्टर/होर्डिंग",
-      "रेडियो/एफएम",
+      "रेडियो/एफ.एम.",
       "वेबसाइट",
       "दोस्त/रिश्तेदार",
       "वॉक-इन",
@@ -153,7 +155,7 @@ const dict = {
     step0Title: "શ્રી ગિરિરાજ હોસ્પિટલમાં આપનું સ્વાગત છે",
     step0Subtitle: "પ્રેરણા, પ્રતિબદ્ધતા અને અનુભવ સાથે, શ્રી ગિરિરાજ હોસ્પિટલની ટીમ દર્દીઓને શ્રેષ્ઠ કાળજી અને કરુણાભાવે સેવા આપવા માટે સમર્પિત છે.",
     welcomeP2:
-      "આપનો પ્રતિસાદ અમારે માટે અત્યંત મહત્વનો છે અને અમારી સેવાઓને વધુ ઉત્તમ બનાવવામાં મદદરૂપ બને છે. કૃપા કરીને અમારી સેવાઓ અંગે તમારો પ્રતિસાદ આપશો",
+      "આપનો પ્રતિસાદ અમારે માટે અત્યંત મહત્વનો છે અને અમારી સેવાઓને વધુ ઉત્તમ બનાવવામાં મદદરૂપ બને છે. કૃપા કરીને અમારી સેવાઓ અંગે તમારો પ્રતિસાદ આપશો.",
     chooseLang: "ભાષા પસંદ કરો",
     english: "English",
     hindi: "હિન્દી",
@@ -168,7 +170,7 @@ const dict = {
     mobile: "મોબાઇલ નંબર",
     doctorName: "કન્સલ્ટન્ટ ડોક્ટરનું નામ",
 
-    vName: "દર્દીનું નામ આવશ્યક છે",
+    vNxme: "દર્દીનું નામ આવશ્યક છે",
     vMobile: "કૃપા કરીને 10 અંકોનો મોબાઇલ નંબર દાખલ કરો",
     vDoctor: "કન્સલ્ટન્ટ ડોક્ટર પસંદ કરો",
 
@@ -181,6 +183,8 @@ const dict = {
     radiologyDiagnosticServices: "રેડિયોલોજી સેવાઓ",
     pathologyDiagnosticServices: "પેથોલોજી સેવાઓ",
     doctorServices: "ડોક્ટર સેવાઓ",
+    cleanliness: "સ્વચ્છતા",
+
     consultant: "કન્સલ્ટન્ટ",
     medical: "મેડિકલ ઓફિસર",
     security: "સિક્યુરિટી",
@@ -191,7 +195,7 @@ const dict = {
       "સોશિયલ મીડિયા",
       "ડોક્ટર દ્વારા",
       "પોસ્ટર/હોર્ડિંગ",
-      "રેડિયો/એફએમ",
+      "રેડિયો/એફ.એમ.",
       "વેબસાઇટ",
       "મિત્રો/સગાં",
       "વૉક-ઇન",
@@ -204,7 +208,7 @@ const dict = {
     npsLikely: "ખૂબ શક્ય",
 
     thanksTitle: "આભાર!",
-    thanksBody: "અમારી સેવા વિશે તમારી પ્રતિસાદ આપવાના માટે આભાર.",
+    thanksBody: "અમારી સેવાઓ વિશે તમારો પ્રતિસાદ આપવા બદલ આભાર.",
   },
 }
 
@@ -215,9 +219,10 @@ const MIN_REQUIRED_RATINGS = 3
 const servicesConfig = [
   { title: "appointment", options: [{ key: "appointment" }] },
   { title: "receptionStaff", options: [{ key: "receptionStaff" }] },
+  { title: "doctorServices", options: [{ key: "doctorServices" }] },
   { title: "radiologyDiagnosticServices", options: [{ key: "radiologyDiagnosticServices" }] },
   { title: "pathologyDiagnosticServices", options: [{ key: "pathologyDiagnosticServices" }] },
-  { title: "doctorServices", options: [{ key: "doctorServices" }] },
+  { title: "cleanliness", options: [{ key: "cleanliness" }] },
   { title: "security", options: [{ key: "security" }] },
 ]
 
@@ -328,7 +333,7 @@ function TextIconButton({
   )
 }
 
- function AnimatedDropdown({
+function AnimatedDropdown({
   icon: Icon,
   options,
   selected,
@@ -562,33 +567,33 @@ export default function OPDFeedback() {
   }, [lng])
 
   // Auto-redirect after Thank-you step
-useEffect(() => {
-  if (step === 5) {
-    const timer = setTimeout(() => {
-      // Reset everything and go to Step 0
-      setStep(0)
-      setName("")
-      setMobile("")
-      setDoctor("")
-      setErrors({})
-      setRatings({
-        appointment: 0,
-        receptionStaff: 0,
-        radiologyDiagnosticServices: 0,
-        pathologyDiagnosticServices: 0,
-        doctorServices: 0,
-        security: 0,
-      })
-      setComments("")
-      setAwarenessIdx(null)
-      setNps(null)
-      setFeedbackError("")
-      setSelectedOptions({ diagnosticServices: "radiology", doctorServices: "consultant" })
-    }, 10000)
+  useEffect(() => {
+    if (step === 5) {
+      const timer = setTimeout(() => {
+        // Reset everything and go to Step 0
+        setStep(0)
+        setName("")
+        setMobile("")
+        setDoctor("")
+        setErrors({})
+        setRatings({
+          appointment: 0,
+          receptionStaff: 0,
+          radiologyDiagnosticServices: 0,
+          pathologyDiagnosticServices: 0,
+          doctorServices: 0,
+          security: 0,
+        })
+        setComments("")
+        setAwarenessIdx(null)
+        setNps(null)
+        setFeedbackError("")
+        setSelectedOptions({ diagnosticServices: "radiology", doctorServices: "consultant" })
+      }, 10000)
 
-    return () => clearTimeout(timer)
-  }
-}, [step])
+      return () => clearTimeout(timer)
+    }
+  }, [step])
 
 
   const validateStep1 = () => {
@@ -612,7 +617,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const res = await ApiGet("/doctors"); 
+        const res = await ApiGet("/doctors");
         if (res?.data) {
           setDoctors(res.data); // [{ _id, name }]
         }
@@ -765,16 +770,34 @@ useEffect(() => {
                   <div>
                     <AnimatedDropdown
                       icon={Stethoscope}
-                      options={doctors.map((d) => d.name)}
-                      selected={doctors.find((d) => d._id === doctor)?.name || ""}
+                      options={doctors.map((d) =>
+                        lng === "gu" ? d.gujName || d.name :
+                          lng === "hi" ? d.hindiName || d.name :
+                            d.name
+                      )}
+                      selected={
+                        doctors.find((d) => d._id === doctor)
+                          ? lng === "gu"
+                            ? doctors.find((d) => d._id === doctor)?.gujName || doctors.find((d) => d._id === doctor)?.name
+                            : lng === "hi"
+                              ? doctors.find((d) => d._id === doctor)?.hindiName || doctors.find((d) => d._id === doctor)?.name
+                              : doctors.find((d) => d._id === doctor)?.name
+                          : ""
+                      }
                       onSelect={(opt) => {
-                        const selectedDoc = doctors.find((d) => d.name === opt);
+                        const selectedDoc = doctors.find(
+                          (d) =>
+                            d.name === opt ||
+                            d.gujName === opt ||
+                            d.hindiName === opt
+                        );
                         if (selectedDoc) {
                           setDoctor(selectedDoc._id);
                         }
                       }}
                       placeholder={t("doctorName")}
                     />
+
                     {errors.doctor ? <p className="mt-1 text-xs text-red-600">{errors.doctor}</p> : null}
                   </div>
                 </div>
