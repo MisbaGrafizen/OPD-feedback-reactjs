@@ -667,12 +667,13 @@ export default function OPDFeedback() {
       }
 
       await ApiPost(OPD_ENDPOINT, payload)
-
-      setShowSaved(true)
+ 
+      setStep(5)
+      // setShowSaved(true)
       setTimeout(() => {
-        setShowSaved(false)
-        setStep(5)
-      }, 700)
+        setStep(0)
+  window.location.reload()
+            }, 2800)
     } catch (err) {
       console.error("OPD submit failed:", err)
       alert("Could not submit. Please try again.")
@@ -843,7 +844,6 @@ export default function OPDFeedback() {
                     }
                   />
                 ))}
-
 
                 {/* Rated count + error */}
                 <div className="mt-2">
