@@ -1,0 +1,46 @@
+name: Deploy to opd.feedbacks.live
+
+on:
+  push:
+    branches:
+      - main       # change if your deploy branch is 'master'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js (adjust version if your project needs)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Step 3: Install dependencies and build
+      - name: Install dependencies & Build project
+        run: |
+          npm install
+          npm run build
+
+      # Step 4: FTP Deploy (upload built files to your hosting)
+      - name: FTP Deploy to opd.feedbacks.live
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          server-dir: /domains/opd.feedbacks.live/public_html/
+          # 👇 adjust this depending on your project type
+          local-dir: ./dist/
+          exclude: |
+            **/node_modules/**
+            **/.git*
+            **/.github/**
+            **/.env
+            **/package*.json
