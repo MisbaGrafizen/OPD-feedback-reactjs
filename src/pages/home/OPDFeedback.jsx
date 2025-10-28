@@ -42,7 +42,7 @@ const dict = {
       "We are glad to hear you out. Your feedback matters to us and helps us improve our services. Let us know by providing a quick review on our services.",
     chooseLang: "Choose your language",
     english: "English",
-    hindi: "हिंदी",
+    hindi: "हिन्दी",
     gujarati: "ગુજરાતી",
 
     back: "Back",
@@ -695,6 +695,8 @@ export default function OPDFeedback() {
 
   const activeDot = step
 
+
+
   return (
     <div className="min-h-screen bg-[#fafafa]">
       <main className="mx-auto max-w-4xl px-4 py-8" lang={lng}>
@@ -704,15 +706,16 @@ export default function OPDFeedback() {
             {step === 0 && (
               <motion.section key="lang" variants={sectionVariants} initial="initial" animate="animate" exit="exit">
                 <div className="flex flex-col items-center text-center">
-                  <div className=" min-h-[270px] w-[100%]">
+                  <div className="  w-[100%]">
 
 
                     <img src={logo} alt="Hospital logo" className="h-16 w-fit  mx-auto mb-4" crossOrigin="anonymous" />
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-gray-900">{t("step0Title")}</h1>
-                    <p className="mt-2  text-gray-700">{t("step0Subtitle")}</p>
-                    <p className="mt-3 text-gray-700">{t("welcomeP2")}</p>
+                                       <h1 className="text-2xl sm:text-3xl md:text-4xl font-[700] text-gray-900">{t("step0Title")}</h1>
+                    <p className="mt-4 text-gray-700 mx-auto max-w-3xl">{t("step0Subtitle")}</p>
+                    <p className="mt-3 text-gray-700  mx-auto max-w-3xl">{t("welcomeP2")}</p>
                   </div>
-                  <div className="mt-10 w-full text-left">
+                                    <hr className="my-6 h-px w-full bg-gradient-to-r from-transparent via-red-200 to-transparent border-0" />
+                  <div className=" w-full text-left">
                     <p className="text-sm font-semibold text-gray-900">{t("chooseLang")}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {[
@@ -724,7 +727,7 @@ export default function OPDFeedback() {
                           key={opt.id}
                           type="button"
                           onClick={() => setLng(opt.id)}
-                          className={`inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-sm font-semibold transition ${lng === opt.id ? "bg-red-600 text-white" : "border border-gray-200 bg-white text-gray-800 hover:border-red-300"
+                          className={`inline-flex items-center gap-2 rounded-[8px] px-3 py-2 text-sm font-semibold transition ${lng === opt.id ? "bg-red-600 text-white" : "border border-gray-200 bg-white text-gray-800 hover:border-red-300"
                             }`}
                         >
                           <Languages className="h-4 w-4" />
@@ -903,7 +906,7 @@ export default function OPDFeedback() {
                         className={`flex items-center justify-center gap-2 rounded-[8px] px-3 py-2 text-sm font-medium transition border relative
           ${active
                             ? "border-red-600 bg-red-50 text-red-700"
-                            : "border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
+                            : "border-gray-300 bg-white text-gray-900 hover:bg-gray-50"
                           }`}
                         aria-pressed={active}
                       >
